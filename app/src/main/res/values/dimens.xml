@@ -2,4 +2,6 @@
 <resources>
     <dimen name="elements_size">60dp</dimen>
     <dimen name="text_size">24dp</dimen>
+    <dimen name="button_width">225dp</dimen>
+    <dimen name="button_height">60dp</dimen>
 </resources>

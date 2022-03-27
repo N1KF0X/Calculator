@@ -94,10 +94,12 @@ public class MainActivity extends AppCompatActivity {
     public void onClickClear(View view){
         if (choiceATextView){
             TextView textView = findViewById(R.id.textView);
+            firstNumber=0;
             textView.setText("");
         }
         else{
             TextView textView1 = findViewById(R.id.textView1);
+            secondNumber=0;
             textView1.setText("");
         }
     }
