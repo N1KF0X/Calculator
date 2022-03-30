@@ -1,106 +1,74 @@
 package com.example.calculator;
 
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    boolean choiceATextView = true;
-    boolean numbersMode = false;
+    EditText editText;
+    EditText editText1;
     Integer firstNumber = 0;
     Integer secondNumber = 0;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        intent = new Intent(this, MainActivity2.class);
+        intent.putExtra("firstNumber", firstNumber);
+        intent.putExtra("secondNumber", secondNumber);
+        editText = findViewById(R.id.editText);
+        editText1 = findViewById(R.id.editText1);
+
     }
-    public void changeNumbersMode(View view){
-       numbersMode =!numbersMode;
-        if(numbersMode){
-            if (choiceATextView){
-                TextView textView = findViewById(R.id.textView);
-                textView.setText("-"+firstNumber);
+
+    public void onClickNegative(View view){
+        try {
+            firstNumber = Integer.parseInt(editText.getText().toString());
+            if (firstNumber > 0) {
+                editText.setText("-" + firstNumber);
             }
-            else{
-                TextView textView1 = findViewById(R.id.textView1);
-                textView1.setText("-"+secondNumber);
+            if (firstNumber < 0) {
+                firstNumber *= -1;
+                editText.setText(firstNumber.toString());
             }
         }
-        else {
-            if (choiceATextView){
-                TextView textView = findViewById(R.id.textView);
-                textView.setText(firstNumber.toString());
-            }
-            else{
-                TextView textView1 = findViewById(R.id.textView1);
-                textView1.setText(secondNumber.toString());
-            }
-        }
-    }
-
-
-    public void onClickTextView(View view) {
-        choiceATextView = true;
-    }
-
-    public void onClickTextView1(View view) {
-        choiceATextView = false;
-    }
-
-    public void onClickButton(View view) {
-        Button button = findViewById(view.getId());
-        if(numbersMode){
-            if (choiceATextView){
-                TextView textView = findViewById(R.id.textView);
-                firstNumber = Integer.parseInt(firstNumber.toString()+button.getText());
-                textView.setText("-"+firstNumber);
-            }
-            else{
-                TextView textView1 = findViewById(R.id.textView1);
-                secondNumber = Integer.parseInt(secondNumber.toString()+button.getText());
-                textView1.setText("-"+secondNumber);
-            }
-        }
-        else {
-            if (choiceATextView){
-                TextView textView = findViewById(R.id.textView);
-                firstNumber = Integer.parseInt(firstNumber.toString()+button.getText());
-                textView.setText(firstNumber.toString());
-            }
-            else{
-                TextView textView1 = findViewById(R.id.textView1);
-                secondNumber = Integer.parseInt(secondNumber.toString()+button.getText());
-                textView1.setText(secondNumber.toString());
-            }
+        catch (Exception ex){
+            Toast.makeText(this, "Неверный ввод", Toast.LENGTH_LONG).show();
         }
     }
 
-    public void onClickResult(View view){
-        Intent intent = new Intent(this, MainActivity2.class);
-        TextView textView = findViewById(R.id.textView);
-        TextView textView1 = findViewById(R.id.textView1);
-        intent.putExtra("firstNumber",Integer.parseInt(textView.getText().toString()));
-        intent.putExtra("secondNumber",Integer.parseInt(textView1.getText().toString()));
-        startActivity(intent);
+    public void onClickNegative1(View view){
+        try {
+            secondNumber = Integer.parseInt(editText1.getText().toString());
+            if (secondNumber > 0) {
+                editText1.setText("-" + secondNumber);
+            }
+            if (secondNumber < 0) {
+                secondNumber *= -1;
+                editText1.setText(secondNumber.toString());
+            }
+        }
+        catch (Exception ex){
+            Toast.makeText(this, "Неверный ввод", Toast.LENGTH_LONG).show();
+        }
     }
 
-    public void onClickClear(View view){
-        if (choiceATextView){
-            TextView textView = findViewById(R.id.textView);
-            firstNumber=0;
-            textView.setText("");
+    public void onClickSum(View view){
+        try {
+            firstNumber = Integer.parseInt(editText.getText().toString());
+            secondNumber = Integer.parseInt(editText1.getText().toString());
+            intent.putExtra("firstNumber", firstNumber);
+            intent.putExtra("secondNumber", secondNumber);
+            startActivity(intent);
         }
-        else{
-            TextView textView1 = findViewById(R.id.textView1);
-            secondNumber=0;
-            textView1.setText("");
+        catch (Exception ex){
+            Toast.makeText(this, "Неверный ввод", Toast.LENGTH_LONG).show();
         }
     }
 }

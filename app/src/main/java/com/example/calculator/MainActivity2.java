@@ -19,12 +19,8 @@ public class MainActivity2 extends AppCompatActivity {
         String firstNumber;
         String secondNumber;
         Integer result = arguments.getInt("firstNumber")+arguments.getInt("secondNumber");
-        if(arguments.getInt("firstNumber")<0){
-           firstNumber = "("+arguments.get("firstNumber").toString()+")";
-        }
-        else {
-            firstNumber = arguments.get("firstNumber").toString();
-        }
+
+        firstNumber = arguments.get("firstNumber").toString();
 
         if(arguments.getInt("secondNumber")<0){
             secondNumber = "("+arguments.get("secondNumber").toString()+")";
