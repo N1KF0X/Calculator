@@ -19,12 +19,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (savedInstanceState != null && savedInstanceState.containsKey("firstNumber")
+                && savedInstanceState.containsKey("secondNumber"))
+        {
+            firstNumber = savedInstanceState.getInt("firstNumber");
+            secondNumber = savedInstanceState.getInt("secondNumber");
+        }
         intent = new Intent(this, MainActivity2.class);
         intent.putExtra("firstNumber", firstNumber);
         intent.putExtra("secondNumber", secondNumber);
         editText = findViewById(R.id.editText);
         editText1 = findViewById(R.id.editText1);
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        outState.putInt("firstNumber", firstNumber);
+        outState.putInt("secondNumber", secondNumber);
     }
 
     public void onClickNegative(View view){
@@ -71,4 +85,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Неверный ввод", Toast.LENGTH_LONG).show();
         }
     }
+
+
 }
